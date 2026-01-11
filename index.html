@@ -1,52 +1,45 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Brian Gaines</title>
-  <meta name="description" content="Brian Gaines — cybersecurity, writing, and portfolio." />
-  <link rel="stylesheet" href="assets/site.css">
-  <script defer src="/assets/site.js"></script>
+  <meta name="description" content="Cybersecurity portfolio, writing, and an accessible resume." />
+
+  <!-- IMPORTANT: relative path so it works everywhere -->
+  <link rel="stylesheet" href="assets/site.css" />
 </head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
+  <header class="site-header" role="banner">
     <div class="container header-inner">
       <div class="brand">
         <div class="brand-title">Brian Gaines</div>
         <div class="brand-sub">Cybersecurity · Writing · Portfolio</div>
       </div>
 
-      <div class="header-actions">
-        <button
-          id="themeToggle"
-          class="icon-btn"
-          type="button"
-          aria-label="Toggle color theme"
-          aria-pressed="false"
-        >
-          <span class="icon" aria-hidden="true">◐</span>
-          <span class="icon-btn-label">Theme</span>
-        </button>
-      </div>
+      <button class="icon-btn" id="themeToggle" type="button" aria-pressed="false">
+        <span class="icon" aria-hidden="true">◐</span>
+        <span class="icon-btn-label">Theme</span>
+      </button>
     </div>
   </header>
 
-  <main id="main" class="container">
+  <main id="main" class="container" role="main">
     <section class="hero" aria-labelledby="hero-title">
       <h1 id="hero-title">Operator brain. Writer voice. Clean work.</h1>
       <p class="hero-lede">
-        This site is the stable layer: portfolio, background, contact, and an accessible resume.
+        Stable layer: portfolio, background, contact, and an accessible, ATS-friendly resume.
       </p>
     </section>
 
-    <section class="grid" aria-label="Primary navigation">
-      <a class="card" href="/portfolio/">
+    <section class="grid" aria-label="Primary sections">
+      <a class="card" href="projects/" aria-label="Open Portfolio">
         <div class="card-top">
           <h2 class="card-title">Portfolio</h2>
-          <div class="card-kicker">Work</div>
+          <span class="card-kicker">Work</span>
         </div>
         <p class="card-body">
           Selected projects, case studies, and artifacts with clear outcomes.
@@ -54,10 +47,10 @@
         <div class="card-cta">Open →</div>
       </a>
 
-      <a class="card" href="/about/">
+      <a class="card" href="about/" aria-label="Open About">
         <div class="card-top">
           <h2 class="card-title">About</h2>
-          <div class="card-kicker">Bio</div>
+          <span class="card-kicker">Bio</span>
         </div>
         <p class="card-body">
           A short professional summary and what I’m focused on now.
@@ -65,21 +58,21 @@
         <div class="card-cta">Open →</div>
       </a>
 
-      <a class="card" href="/contact/">
+      <a class="card" href="contact/" aria-label="Open Contact">
         <div class="card-top">
           <h2 class="card-title">Contact</h2>
-          <div class="card-kicker">Reach me</div>
+          <span class="card-kicker">Reach me</span>
         </div>
         <p class="card-body">
-          Email, links, and a simple form layout (optional).
+          Email and links for collabs, opportunities, and questions.
         </p>
         <div class="card-cta">Open →</div>
       </a>
 
-      <a class="card" href="/resume/">
+      <a class="card" href="resume/" aria-label="Open Resume">
         <div class="card-top">
           <h2 class="card-title">Resume</h2>
-          <div class="card-kicker">ATS + screen reader</div>
+          <span class="card-kicker">ATS + screen reader</span>
         </div>
         <p class="card-body">
           Accessible HTML resume plus a downloadable PDF.
@@ -89,17 +82,19 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
       <div class="footer-left">© 2026 Brian Gaines</div>
       <nav class="footer-right" aria-label="Footer links">
-        <a href="/portfolio/">Portfolio</a>
-        <a href="/resume/">Resume</a>
-        <a href="/contact/">Contact</a>
-        <!-- Optional: link to datapanick when you want -->
-        <!-- <a href="https://datapanick.briangaines.io" rel="noopener">Lab</a> -->
+        <a href="projects/">Portfolio</a>
+        <a href="resume/">Resume</a>
+        <a href="contact/">Contact</a>
+        <a href="https://datapanick.briangaines.io" rel="noopener">Datapanick</a>
+        <a href="https://github.com/BrunyTunes" rel="noopener">GitHub</a>
       </nav>
     </div>
   </footer>
+
+  <script src="assets/site.js"></script>
 </body>
 </html>

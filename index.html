@@ -4,79 +4,102 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Brian Gaines</title>
-  <meta name="description" content="Cybersecurity professional focused on practical defense, systems thinking, and clear communication." />
-  <link rel="stylesheet" href="/assets/style.css" />
+  <meta name="description" content="Brian Gaines — cybersecurity, writing, and portfolio." />
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script defer src="/assets/site.js"></script>
 </head>
+
 <body>
-  <div class="wrap">
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="header">
+  <header class="site-header">
+    <div class="container header-inner">
       <div class="brand">
-        <span class="kicker">briangaines.io</span>
-        <h1>Brian Gaines</h1>
-        <p>
-          Cybersecurity professional focused on practical defense, systems thinking,
-          and communication that people actually understand.
-        </p>
+        <div class="brand-title">Brian Gaines</div>
+        <div class="brand-sub">Cybersecurity · Writing · Portfolio</div>
       </div>
 
-      <nav class="nav" aria-label="Primary">
-        <a class="primary" href="/projects/">Projects</a>
-        <a href="/writing/">Writing</a>
-        <a href="/about/">About</a>
+      <div class="header-actions">
+        <button
+          id="themeToggle"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle color theme"
+          aria-pressed="false"
+        >
+          <span class="icon" aria-hidden="true">◐</span>
+          <span class="icon-btn-label">Theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">Operator brain. Writer voice. Clean work.</h1>
+      <p class="hero-lede">
+        This site is the stable layer: portfolio, background, contact, and an accessible resume.
+      </p>
+    </section>
+
+    <section class="grid" aria-label="Primary navigation">
+      <a class="card" href="/portfolio/">
+        <div class="card-top">
+          <h2 class="card-title">Portfolio</h2>
+          <div class="card-kicker">Work</div>
+        </div>
+        <p class="card-body">
+          Selected projects, case studies, and artifacts with clear outcomes.
+        </p>
+        <div class="card-cta">Open →</div>
+      </a>
+
+      <a class="card" href="/about/">
+        <div class="card-top">
+          <h2 class="card-title">About</h2>
+          <div class="card-kicker">Bio</div>
+        </div>
+        <p class="card-body">
+          A short professional summary and what I’m focused on now.
+        </p>
+        <div class="card-cta">Open →</div>
+      </a>
+
+      <a class="card" href="/contact/">
+        <div class="card-top">
+          <h2 class="card-title">Contact</h2>
+          <div class="card-kicker">Reach me</div>
+        </div>
+        <p class="card-body">
+          Email, links, and a simple form layout (optional).
+        </p>
+        <div class="card-cta">Open →</div>
+      </a>
+
+      <a class="card" href="/resume/">
+        <div class="card-top">
+          <h2 class="card-title">Resume</h2>
+          <div class="card-kicker">ATS + screen reader</div>
+        </div>
+        <p class="card-body">
+          Accessible HTML resume plus a downloadable PDF.
+        </p>
+        <div class="card-cta">Open →</div>
+      </a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">© 2026 Brian Gaines</div>
+      <nav class="footer-right" aria-label="Footer links">
+        <a href="/portfolio/">Portfolio</a>
+        <a href="/resume/">Resume</a>
         <a href="/contact/">Contact</a>
+        <!-- Optional: link to datapanick when you want -->
+        <!-- <a href="https://datapanick.briangaines.io" rel="noopener">Lab</a> -->
       </nav>
-    </header>
-
-    <main class="grid">
-      <section class="card">
-        <h2>What I do</h2>
-        <p>
-          I build repeatable security practices: clear detection/response habits,
-          disciplined documentation, and human-aware workflows that hold up under stress.
-        </p>
-
-        <h2>What I’m building now</h2>
-        <ul class="list">
-          <li>Security+ prep + a hands-on home lab to keep the theory honest.</li>
-          <li>Writeups that translate security concepts into operational clarity.</li>
-          <li>A small set of portfolio projects that show process, not just tools.</li>
-        </ul>
-
-        <p class="muted">
-          Want the visual work? That lives at <a href="https://datapanick.briangaines.io">datapanick.briangaines.io</a>.
-        </p>
-      </section>
-
-      <aside class="card">
-        <h2>Quick links</h2>
-        <ul class="list">
-          <li><a href="/projects/">Projects</a> (flagship build logs + outcomes)</li>
-          <li><a href="/writing/">Writing</a> (short essays + notes)</li>
-          <li><a href="/contact/">Contact</a> (email + profiles)</li>
-        </ul>
-
-        <h2>Principles</h2>
-        <ul class="list">
-          <li>Ethics first. No “clever” that becomes liability.</li>
-          <li>Clarity beats jargon. Documentation is a force multiplier.</li>
-          <li>Systems thinking: tech, people, process—together.</li>
-        </ul>
-      </aside>
-    </main>
-
-    <footer class="footer">
-      <div>© <span id="y"></span> Brian Gaines</div>
-      <div>
-        <a href="https://datapanick.briangaines.io">Datapanick</a>
-        <a href="https://github.com/BrunyTunes">GitHub</a>
-      </div>
-    </footer>
-
-  </div>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+    </div>
+  </footer>
 </body>
 </html>

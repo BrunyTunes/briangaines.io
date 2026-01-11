@@ -1,0 +1,122 @@
+:root{
+  --bg:#0e1116;
+  --panel:#121826;
+  --text:#e7eaf0;
+  --muted:#a9b1c3;
+  --line:#25304a;
+  --accent:#7aa2f7;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline}
+
+.wrap{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+.header{
+  display:flex;
+  gap:24px;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--line);
+}
+
+.brand h1{
+  margin:0;
+  font-size: 2rem;
+  font-weight: 650;
+  letter-spacing: .2px;
+}
+
+.brand p{
+  margin:8px 0 0 0;
+  color:var(--muted);
+  max-width: 70ch;
+}
+
+.nav{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.nav a{
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background: transparent;
+}
+
+.nav a.primary{
+  border-color: transparent;
+  background: var(--panel);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: 1.3fr .9fr;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+@media (max-width: 860px){
+  .grid{grid-template-columns:1fr}
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background: rgba(18,24,38,.65);
+  padding: 18px 18px;
+}
+
+.card h2{
+  margin:0 0 10px 0;
+  font-size: 1.05rem;
+  letter-spacing:.2px;
+}
+
+.card p{margin: 10px 0; color: var(--text)}
+.card .muted{color:var(--muted)}
+.list{
+  margin: 12px 0 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+.list li{margin: 8px 0}
+
+.footer{
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top:1px solid var(--line);
+  color: var(--muted);
+  display:flex;
+  justify-content:space-between;
+  gap: 16px;
+  flex-wrap:wrap;
+  font-size:.95rem;
+}
+.kicker{
+  display:inline-block;
+  padding:6px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color: var(--muted);
+  font-size:.9rem;
+}

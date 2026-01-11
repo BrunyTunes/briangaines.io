@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 — briangaines.io</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    :root{
+      --bg:#07070a; --fg:#e9e9ef; --muted:#9aa0b3; --wire:rgba(190,210,255,.16);
+      --card:rgba(255,255,255,.06);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh;
+      background:
+        radial-gradient(1200px 800px at 20% 20%, rgba(76,201,240,.10), transparent 60%),
+        radial-gradient(1000px 700px at 80% 35%, rgba(255,59,141,.10), transparent 60%),
+        radial-gradient(900px 900px at 50% 85%, rgba(255,209,102,.06), transparent 60%),
+        linear-gradient(180deg, #07070a, #05060b 55%, #060617);
+      color:var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      display:grid;
+      place-items:center;
+      padding:32px;
+    }
+    .wrap{
+      width:min(980px, 100%);
+      border:1px solid var(--wire);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
+      border-radius:18px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.07);
+      padding:28px;
+      backdrop-filter: blur(10px);
+    }
+    .kicker{
+      display:inline-block;
+      border:1px solid var(--wire);
+      padding:6px 10px;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:.9rem;
+      margin-bottom:14px;
+      background:rgba(10,10,18,.45);
+    }
+    h1{margin:0 0 8px 0; font-size:2rem; letter-spacing:.2px}
+    p{margin:10px 0; color: rgba(233,233,239,.88); line-height:1.5}
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+    a.btn{
+      display:inline-block;
+      border:1px solid var(--wire);
+      background: rgba(10,10,18,.45);
+      color:var(--fg);
+      border-radius:999px;
+      padding:10px 12px;
+      text-decoration:none;
+    }
+    a.btn:hover{border-color: rgba(255,255,255,.25)}
+    .small{margin-top:16px; color:var(--muted); font-size:.92rem}
+    code{
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.08);
+      padding:2px 6px;
+      border-radius:8px;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="kicker">briangaines.io</div>
+    <h1>404 — page not found</h1>
+    <p>
+      Either the link is wrong, the page moved, or you’ve discovered a little gap in the map.
+    </p>
+
+    <div class="actions">
+      <a class="btn" href="/">Home</a>
+      <a class="btn" href="/projects/">Projects</a>
+      <a class="btn" href="/writing/">Writing</a>
+      <a class="btn" href="/about/">About</a>
+      <a class="btn" href="/contact/">Contact</a>
+      <a class="btn" href="https://datapanick.briangaines.io">Datapanick</a>
+    </div>
+
+    <p class="small">
+      Tried to reach: <code id="path"></code>
+    </p>
+  </main>
+
+  <script>
+    document.getElementById('path').textContent =
+      window.location.pathname + window.location.search + window.location.hash;
+  </script>
+</body>
+</html>

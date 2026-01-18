@@ -1,95 +1,248 @@
-<!doctype html>
-<html lang="en" data-theme="dark">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Brian Gaines</title>
-  <meta name="description" content="Cybersecurity portfolio, writing, and an accessible resume." />
-
-  <!-- IMPORTANT: repo-relative paths (no leading slash) -->
-  <link rel="stylesheet" href="assets/style.css" />
-
-  <!-- Keep JS from blocking rendering -->
-  <link rel="stylesheet" href="/assets/style.css" />
-<script src="/assets/site.js" defer></script>
-></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name | Cybersecurity Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+    <nav>
+        <div class="container">
+            <div class="logo">YourName</div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="resume.pdf" class="resume-btn" download>Resume</a></li>
+                <li><button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">
-        <div class="brand-title">Brian Gaines</div>
-        <div class="brand-sub">Operator brain. Writer voice. Clean work.</div>
-      </div>
-
-      <button class="icon-btn" id="themeToggle" type="button" aria-pressed="false">
-        <span class="icon" aria-hidden="true">◐</span>
-        <span class="icon-btn-label">Theme</span>
-      </button>
-    </div>
-  </header>
-
-  <main id="main" class="container">
-    <section class="hero" aria-label="Intro">
-      <h1>Operator brain. Writer voice. Clean work.</h1>
-      <p class="hero-lede">
-        This is the stable layer: portfolio, background, contact, and an accessible resume.
-      </p>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Building Security Expertise</h1>
+                    <p>Learning offensive and defensive security operations through hands-on coursework and practical projects.</p>
+                </div>
+                <div class="hero-visual">
+                    <a href="#projects" class="visual-card">
+                        <h4 style="margin-bottom: 8px; color: var(--primary);">Offensive Security</h4>
+                        <p style="font-size: 0.9em; color: var(--text-light);">Identifying vulnerabilities and attack vectors</p>
+                    </a>
+                    <a href="#projects" class="visual-card">
+                        <h4 style="margin-bottom: 8px; color: var(--primary);">Defensive Security</h4>
+                        <p style="font-size: 0.9em; color: var(--text-light);">Building resilient security architectures</p>
+                    </a>
+                    <a href="#projects" class="visual-card">
+                        <h4 style="margin-bottom: 8px; color: var(--primary);">Threat Analysis</h4>
+                        <p style="font-size: 0.9em; color: var(--text-light);">Understanding and mitigating security risks</p>
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="grid" aria-label="Primary sections">
-      <a class="card" href="projects/">
-        <div class="card-top">
-          <h2 class="card-title">Portfolio</h2>
-          <span class="card-kicker">Work</span>
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>About Me</h3>
+                    <p>I'm actively developing my skills in cybersecurity, with a focus on both offensive and defensive security techniques. Through structured coursework and hands-on labs, I'm building practical experience in identifying vulnerabilities and implementing security controls.</p>
+                    <p>My learning path covers penetration testing, threat detection, incident response, and security architecture. This portfolio showcases the projects and labs I've completed as I work toward a career in cybersecurity.</p>
+                    <p>I'm particularly interested in understanding both sides of security—how attackers think and how defenders protect systems—which is why I'm pursuing knowledge in both red and blue team operations.</p>
+                </div>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <div class="skill-icon red">RT</div>
+                        <div>
+                            <strong>Red Team Operations</strong>
+                            <p style="font-size: 0.9em; color: var(--text-light); margin: 0;">Learning penetration testing & exploitation</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon blue">BT</div>
+                        <div>
+                            <strong>Blue Team Defense</strong>
+                            <p style="font-size: 0.9em; color: var(--text-light); margin: 0;">Studying threat detection & response</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon purple">SC</div>
+                        <div>
+                            <strong>Secure Development</strong>
+                            <p style="font-size: 0.9em; color: var(--text-light); margin: 0;">Python, Bash, security scripting</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon teal">SA</div>
+                        <div>
+                            <strong>Security Fundamentals</strong>
+                            <p style="font-size: 0.9em; color: var(--text-light); margin: 0;">Risk assessment, threat analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p class="card-body">Selected projects, case studies, and artifacts with clear outcomes.</p>
-        <div class="card-cta">Open →</div>
-      </a>
-
-      <a class="card" href="about/">
-        <div class="card-top">
-          <h2 class="card-title">About</h2>
-          <span class="card-kicker">Bio</span>
-        </div>
-        <p class="card-body">A short professional summary and what I’m focused on now.</p>
-        <div class="card-cta">Open →</div>
-      </a>
-
-      <a class="card" href="contact/">
-        <div class="card-top">
-          <h2 class="card-title">Contact</h2>
-          <span class="card-kicker">Reach me</span>
-        </div>
-        <p class="card-body">Email, links, and a simple contact layout.</p>
-        <div class="card-cta">Open →</div>
-      </a>
-
-      <a class="card" href="resume/">
-        <div class="card-top">
-          <h2 class="card-title">Resume</h2>
-          <span class="card-kicker">ATS + screen reader</span>
-        </div>
-        <p class="card-body">Accessible HTML resume plus a downloadable PDF.</p>
-        <div class="card-cta">Open →</div>
-      </a>
     </section>
-  </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-left">© 2026 Brian Gaines</div>
-      <nav class="footer-right" aria-label="Footer links">
-        <a href="projects/">Portfolio</a>
-        <a href="resume/">Resume</a>
-        <a href="contact/">Contact</a>
-        <a href="https://datapanick.briangaines.io" rel="noopener">Datapanick</a>
-        <a href="https://github.com/BrunyTunes/briangaines.io" rel="noopener">GitHub</a>
-      </nav>
-    </div>
-  </footer>
+    <section id="projects" style="background: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Projects</h2>
+                <p>Course projects and labs demonstrating hands-on security skills</p>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="red-team">Red Team</button>
+                <button class="filter-btn" data-filter="blue-team">Blue Team</button>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card" data-category="red-team">
+                    <div class="project-image">
+                        <span class="project-type red-team">Red Team</span>
+                    </div>
+                    <div class="project-content">
+                        <h3>Web Application Security Lab</h3>
+                        <p>Course project focused on identifying and exploiting common web vulnerabilities in a controlled lab environment.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">SQL Injection</span>
+                            <span class="project-tag">XSS</span>
+                            <span class="project-tag">CSRF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="blue-team">
+                    <div class="project-image">
+                        <span class="project-type blue-team">Blue Team</span>
+                    </div>
+                    <div class="project-content">
+                        <h3>Security Monitoring Project</h3>
+                        <p>Built detection rules and analyzed log data to identify security events and potential threats in a simulated environment.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Splunk</span>
+                            <span class="project-tag">Log Analysis</span>
+                            <span class="project-tag">Threat Hunting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="red-team">
+                    <div class="project-image">
+                        <span class="project-type red-team">Red Team</span>
+                    </div>
+                    <div class="project-content">
+                        <h3>Network Security Tools</h3>
+                        <p>Python scripts developed for network reconnaissance and vulnerability scanning as part of coursework exercises.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Networking</span>
+                            <span class="project-tag">Automation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog">
+        <div class="container">
+            <div class="section-header">
+                <h2>Blog</h2>
+                <p>Learning notes and writeups from my cybersecurity journey</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>Jan 15, 2025</span>
+                            <span>•</span>
+                            <span>5 min read</span>
+                        </div>
+                        <h3>Setting Up My First SIEM</h3>
+                        <p>A beginner's guide to deploying Splunk, configuring log sources, and creating basic detection rules for common security events.</p>
+                        <a href="#" class="read-more">Read more →</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>Jan 10, 2025</span>
+                            <span>•</span>
+                            <span>8 min read</span>
+                        </div>
+                        <h3>Learning Penetration Testing</h3>
+                        <p>My approach to learning pentesting fundamentals, including reconnaissance techniques, exploitation basics, and documenting findings.</p>
+                        <a href="#" class="read-more">Read more →</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image"></div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>Jan 5, 2025</span>
+                            <span>•</span>
+                            <span>6 min read</span>
+                        </div>
+                        <h3>Getting Started with Threat Hunting</h3>
+                        <p>Introduction to proactive threat detection using open source tools and basic scripting to search for suspicious activity in logs.</p>
+                        <a href="#" class="read-more">Read more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="contact-section">
+                <h2>Let's Connect</h2>
+                <p>Interested in connecting or discussing cybersecurity?</p>
+                <div class="contact-links">
+                    <a href="mailto:your.email@example.com" class="contact-btn primary">Send me an email</a>
+                    <a href="https://linkedin.com/in/yourprofile" class="contact-btn secondary">LinkedIn</a>
+                    <a href="https://github.com/yourusername" class="contact-btn secondary">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <span style="color: var(--border);">|</span>
+                    <a href="https://yourdesignsite.com" target="_blank" rel="noopener noreferrer">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                        </svg>
+                        Design Portfolio
+                    </a>
+                </div>
+                <p>&copy; 2025 Your Name. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

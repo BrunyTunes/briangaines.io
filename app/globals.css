@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg:   #FAF8F3;
+    --bg2:  #EDEAE3;
+    --fg:   #1A1A1A;
+    --fg2:  #6B6B6B;
+    --line: rgba(26,26,26,0.10);
+    --line2:#1A1A1A;
+    --grid: rgba(26,26,26,0.07);
+    --num:  rgba(26,26,26,0.05);
+  }
+
+  .dark {
+    --bg:   #1A1A1A;
+    --bg2:  #242424;
+    --fg:   #FAF8F3;
+    --fg2:  #A0A0A0;
+    --line: rgba(250,248,243,0.10);
+    --line2:#FAF8F3;
+    --grid: rgba(250,248,243,0.07);
+    --num:  rgba(250,248,243,0.04);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-outfit), system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  ::selection { background: var(--fg); color: var(--bg); }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+}
+
+@layer utilities {
+  .text-primary   { color: var(--fg); }
+  .text-secondary { color: var(--fg2); }
+  .bg-primary     { background-color: var(--bg); }
+  .bg-secondary   { background-color: var(--bg2); }
+  .border-subtle  { border-color: var(--line); }
+  .border-strong  { border-color: var(--line2); }
+}

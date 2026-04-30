@@ -10,8 +10,21 @@ const outfit = Outfit({
 })
 
 export const metadata: Metadata = {
-  title: 'Brian Gaines — Cybersecurity',
+  title: 'Brian Gaines — Cybersecurity Portfolio',
   description: 'Threat detection is my job. Breaking my own network is my hobby. The overlap is useful.',
+  openGraph: {
+    title: 'Brian Gaines — Cybersecurity Portfolio',
+    description: 'Threat detection is my job. Breaking my own network is my hobby.',
+    url: 'https://briangaines.io',
+    siteName: 'Brian Gaines',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Brian Gaines — Cybersecurity Portfolio',
+    description: 'Threat detection is my job. Breaking my own network is my hobby.',
+  },
 }
 
 export default function RootLayout({

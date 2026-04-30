@@ -162,13 +162,12 @@ export default function Home() {
         /* Logo */
         .nav-logo { font-weight:600; font-size:15px; color:var(--fg); letter-spacing:0.02em; cursor:pointer; display:flex; align-items:center; position:relative; height:24px; }
         .logo-spacer { display:inline-block; width:120px; height:24px; transition:width 700ms cubic-bezier(0.4,0,0.2,1); flex-shrink:0; }
-        nav.scrolled .logo-spacer { width:40px; }
+        nav.scrolled .logo-spacer { width:64px; }
         .logo-full { position:absolute; left:0; white-space:nowrap; transition:opacity 700ms ease, letter-spacing 700ms ease; opacity:1; letter-spacing:0.02em; }
         nav.scrolled .logo-full { opacity:0; letter-spacing:0.06em; }
         .logo-bg { position:absolute; left:0; white-space:nowrap; transition:opacity 700ms ease, letter-spacing 700ms ease; opacity:0; letter-spacing:0.08em; }
         nav.scrolled .logo-bg { opacity:1; letter-spacing:0.02em; }
-.logo-dot { position:absolute; width:4px; height:4px; border-radius:50%; background:var(--fg); left:34px; top:50%; transform:translateY(-50%) scale(0); transition:left 700ms cubic-bezier(0.4,0,0.2,1), transform 700ms cubic-bezier(0.4,0,0.2,1), opacity 700ms ease; opacity:0; }
-nav.scrolled .logo-dot { left:38px; transform:translateY(-50%) scale(1); opacity:1; }        nav.scrolled .logo-dot { left:30px; transform:translateY(-50%) scale(1); opacity:1; }
+
 
         .nav-links { display:flex; align-items:center; gap:2px; }
         .nav-link { font-size:14px; font-weight:400; color:var(--fg2); padding:6px 14px; border-radius:4px; cursor:pointer; background:none; border:none; transition:color 150ms,background 150ms; position:relative; font-family:inherit; }
@@ -258,8 +257,7 @@ nav.scrolled .logo-dot { left:38px; transform:translateY(-50%) scale(1); opacity
           <div className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <div className="logo-spacer" />
             <span className="logo-full">Brian Gaines</span>
-            <span className="logo-bg">BG</span>
-            <span className="logo-dot" />
+            <span className="logo-bg">| BG |</span>
           </div>
           <div className="nav-links">
             {['about','portfolio','blog','contact'].map(s => (

@@ -12,6 +12,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: 'Brian Gaines — Cybersecurity Portfolio',
   description: 'Threat detection is my job. Breaking my own network is my hobby. The overlap is useful.',
+  icons: { icon: '/favicon.svg' },
   openGraph: {
     title: 'Brian Gaines — Cybersecurity Portfolio',
     description: 'Threat detection is my job. Breaking my own network is my hobby.',

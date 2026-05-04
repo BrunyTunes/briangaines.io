@@ -205,7 +205,7 @@ export default function Home() {
             ctx.fillText(pt.char, pt.tx + dx, pt.ty + dy);
           });
           ctx.globalAlpha = 1;
-          nameEl.style.opacity = et.toString();
+          if (nameEl) nameEl.style.opacity = et.toString();
 
           if (p >= 1) {
             ctx.clearRect(0, 0, W, H);

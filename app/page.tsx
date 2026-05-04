@@ -122,8 +122,7 @@ export default function Home() {
 
       touts.push(setTimeout(() => document.getElementById('heroLabel')?.classList.add('show'), 400));
 
-      const nameEl = document.getElementById('heroName');
-      if (!nameEl) return;
+const nameEl = document.getElementById('heroName') as HTMLElement;      if (!nameEl) return;
       const rect = nameEl.getBoundingClientRect();
       const computedFs = parseFloat(window.getComputedStyle(nameEl).fontSize);
 

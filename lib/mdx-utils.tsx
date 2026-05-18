@@ -73,5 +73,3 @@ export function getPostBySlug(slug: string): { meta: PostMeta; content: string }
   }
   return walk(contentDir, 'general');
 }
-      }
-    }

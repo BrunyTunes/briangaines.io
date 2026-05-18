@@ -1,0 +1,22 @@
+
+> briangaines-portfolio-v2@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.2.4 (Turbopack)
+
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 4.3s
+  Running TypeScript ...
+Failed to type check.
+
+./lib/mdx-utils.tsx:47:46
+Type error: A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value.
+
+  45 | }
+  46 |
+> 47 | export function getPostBySlug(slug: string): { meta: PostMeta; content: string } | null {
+     |                                              ^
+  48 |   function walk(dir: string, category: string): { meta: PostMeta; content: string } | null {
+  49 |     const entries = fs.readdirSync(dir, { withFileTypes: true });
+  50 |     for (const entry of entries) {
+Next.js build worker exited with code: 1 and signal: null

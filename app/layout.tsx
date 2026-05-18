@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
+import Navbar from '@/components/Navbar'
 import './globals.css'
 
 const outfit = Outfit({
@@ -46,6 +47,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
         </ThemeProvider>
       </body>

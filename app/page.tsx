@@ -1,279 +1,224 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+
+// Formspree endpoint — replace YOUR_FORM_ID with the ID from your Formspree dashboard.
+// https://formspree.io/forms — free tier is plenty for a portfolio contact form.
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
+function ContactForm() {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus('sending');
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        setStatus('sent');
+        form.reset();
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="form-field">
+        <label htmlFor="name">Name</label>
+        <input id="name" name="name" type="text" required autoComplete="name" />
+      </div>
+      <div className="form-field">
+        <label htmlFor="email">Email</label>
+        <input id="email" name="email" type="email" required autoComplete="email" />
+      </div>
+      <div className="form-field">
+        <label htmlFor="message">Message</label>
+        <textarea id="message" name="message" required />
+      </div>
+      <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
+        {status === 'sending' ? 'Sending…' : 'Send message'}
+      </button>
+      <p className={`form-status ${status === 'sent' ? 'success' : ''}`} role="status">
+        {status === 'sent' && 'Message sent — thanks, I\u2019ll get back to you soon.'}
+        {status === 'error' && 'Something went wrong. Try emailing me directly instead.'}
+      </p>
+    </form>
+  );
+}
 
 export default function Home() {
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const nav = document.querySelector('nav');
-    const onScroll = () => nav?.classList.toggle('scrolled', window.scrollY > 20);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          navLinks.forEach(a => {
-            a.classList.remove('active');
-            if (a.getAttribute('data-section') === e.target.id) a.classList.add('active');
-          });
-        }
-      });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    sections.forEach(s => observer.observe(s));
-    return () => observer.disconnect();
+    const id = requestAnimationFrame(() => setLoaded(true));
+    return () => cancelAnimationFrame(id);
   }, []);
 
   useEffect(() => {
     const reveals = document.querySelectorAll('.reveal');
-    const nums = document.querySelectorAll('.section-bg-num');
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    const numObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), 150); numObs.unobserve(e.target); } });
-    }, { threshold: 0.05 });
-    reveals.forEach(r => revealObs.observe(r));
-    nums.forEach(n => numObs.observe(n));
-    return () => { revealObs.disconnect(); numObs.disconnect(); };
-  }, []);
-
-  useEffect(() => {
-    let raf: number;
-    const touts: ReturnType<typeof setTimeout>[] = [];
-
-    function easeOut(t: number) { return 1 - Math.pow(1 - t, 3); }
-    function easeInOut(t: number) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-    function lerp(a: number, b: number, t: number) { return a + (b - a) * t; }
-    function clamp(v: number, lo: number, hi: number) { return Math.max(lo, Math.min(hi, v)); }
-
-    function run() {
-      const canvas = document.getElementById('heroCanvas') as HTMLCanvasElement;
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d')!;
-      const W = canvas.width = window.innerWidth;
-      const H = canvas.height = window.innerHeight;
-      const isDark = document.documentElement.classList.contains('dark');
-      const fgColor = isDark ? '#FAF8F3' : '#1A1A1A';
-
-      touts.push(setTimeout(() => {
-        const label = document.querySelector('.section-label') as HTMLElement;
-        if (label) { label.style.opacity = '1'; label.style.transform = 'translateY(0)'; }
-      }, 400));
-
-      const nameEl = document.getElementById('heroName') as HTMLElement;
-      if (!nameEl) return;
-      nameEl.style.opacity = '0';
-      nameEl.style.transition = 'none';
-      const gaines = document.getElementById('nameGaines') as HTMLElement;
-      if (gaines) { gaines.style.transition = 'none'; gaines.style.transform = 'translateY(0)'; }
-
-      requestAnimationFrame(() => {
-        const rect = nameEl.getBoundingClientRect();
-        const computedFs = parseFloat(window.getComputedStyle(nameEl).fontSize);
-        const off = new OffscreenCanvas(W, H);
-        const offCtx = off.getContext('2d')!;
-        offCtx.font = `700 ${computedFs}px 'Outfit', sans-serif`;
-        offCtx.fillStyle = '#fff';
-        offCtx.textBaseline = 'top';
-        offCtx.fillText('Brian Gaines', rect.left, rect.top);
-        const imgData = offCtx.getImageData(0, 0, W, H);
-        const step = 8;
-        const targets: { tx: number; ty: number }[] = [];
-        for (let y = rect.top - 4; y < rect.bottom + 4; y += step) {
-          for (let x = rect.left - 4; x < rect.right + 4; x += step) {
-            const idx = (Math.floor(y) * W + Math.floor(x)) * 4;
-            if (imgData.data[idx + 3] > 60) targets.push({ tx: x, ty: y });
-          }
-        }
-        const particles = targets.map(t => {
-          const angle = Math.random() * Math.PI * 2;
-          const dist = 200 + Math.random() * Math.max(W, H) * 0.7;
-          return { sx: t.tx + Math.cos(angle) * dist, sy: t.ty + Math.sin(angle) * dist, tx: t.tx, ty: t.ty, char: Math.random() > 0.5 ? '1' : '0', delay: Math.random() * 0.35, driftPhase: Math.random() * Math.PI * 2, size: step * (0.55 + Math.random() * 0.3) };
-        });
-        const CONVERGE = 2200, HOLD = 300, CROSSFADE = 1200;
-        let startTime: number | null = null;
-        let phase = 'converge';
-        let phaseStart: number | null = null;
-
-        function draw(ts: number) {
-          if (!startTime) startTime = ts;
-          const elapsed = ts - startTime;
-          ctx.clearRect(0, 0, W, H);
-          if (phase === 'converge') {
-            const progress = clamp(elapsed / CONVERGE, 0, 1);
-            particles.forEach(p => {
-              const lp = clamp((progress - p.delay) / (1 - p.delay), 0, 1);
-              const et = easeOut(lp);
-              ctx.globalAlpha = clamp(lp * 1.8, 0, 0.9);
-              ctx.fillStyle = fgColor;
-              ctx.font = `400 ${p.size}px 'Fira Code', monospace`;
-              ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-              ctx.fillText(p.char, lerp(p.sx, p.tx, et), lerp(p.sy, p.ty, et));
-            });
-            ctx.globalAlpha = 1;
-            if (progress >= 1) { phase = 'hold'; phaseStart = ts; }
-          } else if (phase === 'hold') {
-            particles.forEach(p => {
-              ctx.globalAlpha = 0.9; ctx.fillStyle = fgColor;
-              ctx.font = `400 ${p.size}px 'Fira Code', monospace`;
-              ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-              ctx.fillText(p.char, p.tx, p.ty);
-            });
-            ctx.globalAlpha = 1;
-            if (ts - phaseStart! > HOLD) { phase = 'crossfade'; phaseStart = ts; nameEl.style.transition = `opacity ${CROSSFADE}ms ease`; }
-          } else if (phase === 'crossfade') {
-            const progress = clamp((ts - phaseStart!) / CROSSFADE, 0, 1);
-            const et = easeInOut(progress);
-            particles.forEach(p => {
-              const t = (ts - phaseStart!) / 1000;
-              const dx = Math.sin(t * 1.5 + p.driftPhase) * et * 2;
-              const dy = Math.cos(t * 1.2 + p.driftPhase) * et * 1.5;
-              ctx.globalAlpha = (1 - et) * 0.9; ctx.fillStyle = fgColor;
-              ctx.font = `400 ${p.size}px 'Fira Code', monospace`;
-              ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-              ctx.fillText(p.char, p.tx + dx, p.ty + dy);
-            });
-            ctx.globalAlpha = 1;
-            nameEl.style.opacity = et.toString();
-            if (progress >= 1) {
-              ctx.clearRect(0, 0, W, H);
-              nameEl.style.opacity = '1';
-              touts.push(setTimeout(() => {
-                if (gaines) { gaines.style.transition = 'transform 350ms cubic-bezier(0.22, 1, 0.36, 1)'; gaines.style.transform = 'translateY(3px)'; }
-                const desc = document.getElementById('heroDesc') as HTMLElement;
-                if (desc) { desc.style.opacity = '1'; desc.style.transform = 'translateY(0)'; }
-              }, 150));
-              return;
-            }
-          }
-          raf = requestAnimationFrame(draw);
-        }
-        raf = requestAnimationFrame(draw);
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
       });
-    }
-
-    document.fonts.ready.then(run);
-    return () => { cancelAnimationFrame(raf); touts.forEach(clearTimeout); };
+    }, { threshold: 0.12 });
+    reveals.forEach(r => obs.observe(r));
+    return () => obs.disconnect();
   }, []);
-
-  const handleNavClick = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <main style={{ paddingTop: '64px' }}>
 
-      <section className="hero">
-        <canvas id="heroCanvas" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} aria-hidden="true" />
-        <div className="hero-grid" />
-        <div className="hero-content">
-          <div className="section-label">briangaines.io</div>
-          <h1 id="heroName" style={{ opacity: 0 }}>
-            Brian <span id="nameGaines" style={{ display: 'inline-block' }}>Gaines</span>
-          </h1>
-          <p id="heroDesc" className="hero-desc" style={{ opacity: 0, transform: 'translateY(18px)', transition: 'opacity 600ms ease, transform 600ms ease' }}>
+      <section className={`hero ${loaded ? 'loaded' : ''}`} id="top">
+        <div className="hero-media">
+          {/*
+            Drop a black & white photo of vintage computer gear at
+            /public/images/hero-vintage-tech.jpg — an old terminal, a
+            circuit board, a rack of drives. It's rendered in grayscale
+            regardless, so a color photo works fine too.
+          */}
+          <Image
+            src="/images/hero-vintage-tech.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+          />
+        </div>
+        <div className="hero-inner">
+          <div className="label">Cybersecurity · SOC Analyst</div>
+          <h1>Brian <span className="accent-word">Gaines</span></h1>
+          <p className="hero-desc">
             Threat detection is my job. Breaking my own network is my hobby. The overlap is useful.
           </p>
         </div>
       </section>
 
       <section className="section" id="about">
-        <div className="section-bg-num">01</div>
         <div className="section-inner reveal">
-          <div className="section-number">01 / About</div>
+          <div className="label">About</div>
           <h2>Background</h2>
           <div className="about-grid">
             <div className="about-bio">
-              <p>Started in academic rhetoric — PhD work on surveillance theory at Virginia Tech. When the higher education market collapsed, I took the theoretical toolkit somewhere it could do real work.</p>
-              <p>Now building security infrastructure in a homelab I call The Sprawl. Studying for an AAS in Cybersecurity at Tri-County. Deploying the same critical frameworks I used to write about.</p>
+              <p>I served as a Navy Mass Communications Specialist before pursuing graduate research on the ethical and philosophical implications of digital surveillance. That path — military communications, then academic inquiry — now feeds into SOC analysis: translating dense technical material into incident reports and briefings a blue team can move on quickly.</p>
+              <p>I currently build and sometimes break security infrastructure in a homelab that runs the gamut from digital to physical security.</p>
               <p>Current focus: SOC operations, SIEM architecture, threat detection, and the intersection of AI tooling with defensive security.</p>
-            </div>
-            <div className="skills-grid">
-              {[
-                ['Focus', 'SOC / Threat Detection'],
-                ['SIEM', 'Splunk, Wazuh, ELK'],
-                ['Scripting', 'Python, Bash, PowerShell'],
-                ['Platforms', 'Linux, Windows Server'],
-                ['Labs', 'Proxmox, Homelab'],
-                ['Certs', 'CompTIA Sec+ (in progress)'],
-              ].map(([label, value]) => (
-                <div key={label} className="skill-cell">
-                  <span className="skill-label">{label}</span>
-                  <span className="skill-value">{value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="portfolio">
-        <div className="section-bg-num">02</div>
-        <div className="section-inner reveal">
-          <div className="section-number">02 / Portfolio</div>
-          <h2>Projects</h2>
-          <div className="project-grid">
-            {[
-              { tag: 'Physical Security', title: 'RFID Badge Cloning Assessment', desc: 'Evaluated access control vulnerabilities using Flipper Zero against 13.56MHz NFC systems.', tech: ['Flipper Zero', 'NFC', 'Access Control'] },
-              { tag: 'Web Security', title: 'OWASP Juice Shop Exploitation', desc: 'Systematic vulnerability assessment covering injection, broken auth, and XSS attack vectors.', tech: ['Burp Suite', 'OWASP', 'SQLi'] },
-              { tag: 'AI + Security', title: 'AI-Powered Log Analyzer', desc: 'Connecting homelab SIEM data to AI tooling for automated threat pattern detection.', tech: ['Python', 'Wazuh', 'Claude API'] },
-            ].map(({ tag, title, desc, tech }) => (
-              <a key={title} href="#" className="project-card">
-                <span className="card-tag">{tag}</span>
-                <span className="card-title">{title}</span>
-                <span className="card-desc">{desc}</span>
-                <div className="tech-tags">{tech.map(t => <span key={t} className="tech-tag">{t}</span>)}</div>
-                <span className="card-arrow">View Project →</span>
+              {/* Drop your resume PDF at /public/resume.pdf — opens in a new tab so it can be previewed before downloading */}
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="bio-resume-link">
+                View / download résumé (PDF)
               </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="blog">
-        <div className="section-bg-num">03</div>
-        <div className="section-inner reveal">
-          <div className="section-number">03 / Blog</div>
-          <h2>Writing</h2>
-          <div className="project-grid">
-            <a href="#" className="project-card">
-              <span className="card-tag">Career · Theory · 2026-04-20</span>
-              <span className="card-title">Surveillance Aesthetics as Career Path</span>
-              <span className="card-desc">How a PhD dissertation on surveillance became a cybersecurity career. Academic theory meets applied praxis.</span>
-              <div className="tech-tags">
-                <span className="tech-tag">Career</span>
-                <span className="tech-tag">Theory</span>
-                <span className="tech-tag">8 min read</span>
+            </div>
+            <div className="facts-strip">
+              <div className="fact-tile wide">
+                <span className="fact-label">Focus</span>
+                <span className="fact-value">SOC / Threat Detection</span>
               </div>
-              <span className="card-arrow">Read Post →</span>
+              <div className="fact-tile">
+                <span className="fact-label">Scripting</span>
+                <span className="fact-value">Python (in progress)</span>
+              </div>
+              <div className="fact-tile">
+                <span className="fact-label">Learning</span>
+                <span className="fact-value">SIEM administration</span>
+              </div>
+              <div className="fact-tile">
+                <span className="fact-label">Lab</span>
+                <span className="fact-value">Homelab — digital &amp; physical security</span>
+              </div>
+              <div className="fact-tile">
+                <span className="fact-label">Certs</span>
+                <span className="fact-value">CompTIA Security+ (in progress)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="work">
+        <div className="section-inner reveal">
+          <div className="label">Work</div>
+          <h2>Selected Projects</h2>
+          <p className="section-lede">A mix of physical, web, and AI-assisted security work — mostly built and broken in my own homelab.</p>
+          <div className="bento">
+            <a href="#" className="bento-tile featured">
+              <span className="bento-tag">AI + Security</span>
+              <span className="bento-title">AI-Powered Log Analyzer</span>
+              <p className="bento-desc">Connecting homelab SIEM data to AI tooling for automated threat pattern detection across Wazuh alerts.</p>
+              <div className="bento-tech">
+                <span className="bento-chip">Python</span>
+                <span className="bento-chip">Wazuh</span>
+                <span className="bento-chip">Claude API</span>
+              </div>
+              <span className="bento-arrow">View project →</span>
+            </a>
+            <a href="#" className="bento-tile wide">
+              <span className="bento-tag">Physical Security</span>
+              <span className="bento-title">RFID Badge Cloning Assessment</span>
+              <p className="bento-desc">Evaluated access control vulnerabilities using Flipper Zero against 13.56MHz NFC systems.</p>
+              <span className="bento-arrow">View project →</span>
+            </a>
+            <a href="#" className="bento-tile">
+              <span className="bento-tag">Web Security</span>
+              <span className="bento-title">OWASP Juice Shop</span>
+              <p className="bento-desc">Injection, broken auth, and XSS assessment.</p>
+              <span className="bento-arrow">View →</span>
+            </a>
+            <a href="https://github.com/briangaines" className="bento-tile cta">
+              <span className="bento-tag">More</span>
+              <span className="bento-title">See everything on GitHub</span>
+              <span className="bento-arrow">github.com/briangaines →</span>
             </a>
           </div>
         </div>
       </section>
 
-      <section className="section" id="contact">
-        <div className="section-bg-num">04</div>
+      <section className="section" id="writing">
         <div className="section-inner reveal">
-          <div className="section-number">04 / Contact</div>
+          <div className="label">Writing</div>
+          <h2>Notes</h2>
+          <div className="post-list">
+            <a href="#" className="post-row">
+              <div className="post-main">
+                <span className="post-title">Surveillance Aesthetics as Career Path</span>
+                <span className="post-desc">How a PhD dissertation on surveillance became a cybersecurity career. Academic theory meets applied praxis.</span>
+              </div>
+              <span className="post-meta">Apr 20, 2026 · 8 min</span>
+              <span className="post-arrow">Read →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="contact" style={{ borderBottom: 'none' }}>
+        <div className="section-inner reveal">
+          <div className="label">Contact</div>
           <h2>Get in Touch</h2>
-          <div className="contact-row">
-            <a href="mailto:brian@briangaines.io" className="contact-item">
-              <div className="contact-label">Email</div>
-              <div className="contact-value">brian@briangaines.io</div>
-            </a>
-            <a href="https://github.com/briangaines" className="contact-item">
-              <div className="contact-label">GitHub</div>
-              <div className="contact-value">github.com/briangaines</div>
-            </a>
-            <a href="https://linkedin.com/in/briangaines" className="contact-item">
-              <div className="contact-label">LinkedIn</div>
-              <div className="contact-value">linkedin.com/in/briangaines</div>
-            </a>
+          <div className="contact-layout">
+            <div className="contact-links">
+              <a href="mailto:brian@briangaines.io" className="contact-link">
+                <span className="fact-label">Email</span>
+                <span className="fact-value">brian@briangaines.io</span>
+              </a>
+              <a href="https://github.com/briangaines" className="contact-link">
+                <span className="fact-label">GitHub</span>
+                <span className="fact-value">github.com/briangaines</span>
+              </a>
+              <a href="https://linkedin.com/in/briangaines" className="contact-link">
+                <span className="fact-label">LinkedIn</span>
+                <span className="fact-value">linkedin.com/in/briangaines</span>
+              </a>
+            </div>
+            <ContactForm />
           </div>
         </div>
       </section>
@@ -286,7 +231,6 @@ export default function Home() {
           </div>
           <div className="footer-right">
             <a href="#">RSS Feed</a>
-            <span className="theme-indicator">Dark Mode</span>
           </div>
         </div>
       </footer>

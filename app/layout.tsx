@@ -1,12 +1,29 @@
 import type { Metadata } from 'next'
-import { Outfit } from 'next/font/google'
-import { ThemeProvider } from 'next-themes'
+import { Archivo, Work_Sans, IBM_Plex_Mono } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import './globals.css'
 
-const outfit = Outfit({
+// Display face — bold sans, black weight, used only for headlines and titles
+const archivo = Archivo({
   subsets: ['latin'],
-  variable: '--font-outfit',
+  weight: ['700', '900'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+// Body face — quiet, readable, carries the paragraph text
+const workSans = Work_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-body',
+  display: 'swap',
+})
+
+// Utility face — used sparingly for eyebrows, tags, and metadata only
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -37,19 +54,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={outfit.variable}
+      className={`${archivo.variable} ${workSans.variable} ${plexMono.variable}`}
     >
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <Navbar />
-          {children}
-        </ThemeProvider>
+        <Navbar />
+        {children}
       </body>
     </html>
   )
